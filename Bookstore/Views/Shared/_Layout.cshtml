@@ -1,0 +1,267 @@
+﻿<!doctype html>
+<html class="no-js" lang="zxx" dir="rtl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@ViewData["Title"] - متجر الكتب</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="~/files/Default/logo.png">
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="~/home/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/home/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/home/assets/css/flaticon.css">
+    <link rel="stylesheet" href="~/home/assets/css/slicknav.css">
+    <link rel="stylesheet" href="~/home/assets/css/animate.min.css">
+    <link rel="stylesheet" href="~/home/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/home/assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="~/home/assets/css/themify-icons.css">
+    <link rel="stylesheet" href="~/home/assets/css/slick.css">
+    <link rel="stylesheet" href="~/home/assets/css/nice-select.css">
+    <link rel="stylesheet" href="~/home/assets/css/style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@200;300;400;600;700;900&family=Roboto&display=swap"
+          rel="stylesheet">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .nice-select {
+            width: 100% !important;
+            text-align: right !important
+        }
+
+            .nice-select span.current {
+                padding-right: 25px;
+                text-align: right
+            }
+
+            .nice-select.form-control.open ul, .nice-select.form-control ul {
+                width: 100% !important
+            }
+
+                .nice-select.form-control.open ul li, .nice-select.open ul li, .nice-select.form-control ul li {
+                    text-align: right !important
+                }
+
+
+        body,
+        input,
+        textarea,
+        small,
+        button,
+        a,
+        li,
+        span,
+        label,
+        b,
+        p,
+        select,
+        option,
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: Almarai !important;
+        }
+
+        .servic-padding {
+            padding-top: 100px !important;
+        }
+
+        @@media only screen and (max-width: 1600px) and (min-width: 1200px) {
+            .footer-padding {
+                padding-top: 0px;
+                padding-bottom: 15px;
+            }
+        }
+
+        .footer-social a {
+            color: #c0c0c0;
+        }
+
+        .text-stand {
+            color: #d86729 !important
+        }
+
+        .border-color {
+            border-color: #d86729 !important
+        }
+
+        #scrollUp {
+            background-color: #d86729 !important
+        }
+
+        .bg-color {
+            background-color: #d86729 !important
+        }
+
+        .bg-color-hover:hover {
+            background-color: #f17937 !important
+        }
+    </style>
+    @RenderSection("Css", false)
+</head>
+
+<body>
+    <!-- Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="/files/Default/logo.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start -->
+    <header>
+        <!-- Header Start -->
+        <div class="header-area">
+            <div class="main-header ">
+                <div class="header-top top-bg d-none d-lg-block">
+                        <div class="container">
+                            <div class="row justify-content-between align-items-center">
+                                <div class="col-lg-8">
+                                    <div class="header-info-left">
+                                        <ul>
+                                            <li>needhelp@bookstore.com</li>
+                                            <li>666 569 025077</li>
+                                            <li>broklyn street new york</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="header-info-right f-right">
+                                        <ul class="header-social">
+                                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                            <li> <a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="header-bottom  header-sticky">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <!-- Logo -->
+                            <div class="col-xl-3 col-lg-3 col-md-1 text-center">
+                                <div class="logo">
+                                    <a href="/">
+                                        <img src="/files/Default/logo.png"
+                                             style="width: auto;height: 65px;"
+                                             alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-xl-9 col-lg-9 col-md-9 text-center">
+                                <!-- Main-menu -->
+                                <div class="main-menu fc-center d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">
+                                            <li><a href="/">الرئيسية</a></li>
+                                            <li><a href="#ContactUs">تواصل معنا</a></li>
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+                                <li><a href="/Admin/Home/Index" class="text-stand">دخول للنظام</a></li>
+ }
+                                            else
+                                            {
+                                <li><a href="/Identity/Account/Login">تسجيل الدخول</a></li>}
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <!-- Mobile Menu -->
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-lg-none"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+    </header>
+
+    <main dir="rtl">
+        @RenderBody()
+    </main>
+    <footer>
+        <!-- Footer Start-->
+        <div class="footer-area footer-padding footer-bg" data-background="/home/assets/img/service/footer_bg.jpg">
+            <div class="container">
+                <!-- Footer bottom -->
+                <div class="row pt-padding">
+                    <div class="col-xl-7 col-lg-7 col-md-7">
+                        <div class="footer-copy-right">
+                            <p>
+                                حقوق النشر © @DateTime.Now.Year جميع الحقوق محفوظة
+                                بواسطة <a href="/" target="_blank" class="text-stand">BookStore Online</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-xl-5 col-lg-5 col-md-5">
+                        <div class="footer-social f-left">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS here -->
+    <!-- All JS Custom Plugins Link Here here -->
+    <script src="~/home/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="~/home/assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="~/home/assets/js/popper.min.js"></script>
+    <script src="~/home/assets/js/bootstrap.min.js"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="~/home/assets/js/jquery.slicknav.min.js"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="~/home/assets/js/owl.carousel.min.js"></script>
+    <script src="~/home/assets/js/slick.min.js"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="~/home/assets/js/wow.min.js"></script>
+    <script src="~/home/assets/js/animated.headline.js"></script>
+    <script src="~/home/assets/js/jquery.magnific-popup.js"></script>
+
+    <!-- Scrollup, nice-select, sticky -->
+    <script src="~/home/assets/js/jquery.scrollUp.min.js"></script>
+    <script src="~/home/assets/js/jquery.nice-select.min.js"></script>
+    <script src="~/home/assets/js/jquery.sticky.js"></script>
+
+    <!-- contact js -->
+    <script src="~/home/assets/js/contact.js"></script>
+    <script src="~/home/assets/js/jquery.form.js"></script>
+    <script src="~/home/assets/js/jquery.validate.min.js"></script>
+    <script src="~/home/assets/js/mail-script.js"></script>
+    <script src="~/home/assets/js/jquery.ajaxchimp.min.js"></script>
+
+    <!-- Jquery Plugins, main Jquery -->
+    <script src="~/home/assets/js/plugins.js"></script>
+    <script src="~/home/assets/js/main.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>
+

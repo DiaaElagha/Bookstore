@@ -1,0 +1,261 @@
+﻿@model Bookstore.Models.ViewModels.HomeVM
+@{ ViewData["Title"] = "الرئيسية"; }
+
+@section Css{
+    <style>
+        .img-pop-up:hover {
+        }
+
+        .place-padding {
+            padding-top: 70px;
+            padding-bottom: 170px;
+        }
+
+        .favourite-place .single-place .place-cap .place-cap-top {
+            margin-bottom: 10px;
+        }
+
+        .image-card {
+            height: 200px;
+            width: 100%;
+        }
+
+        .flip-card {
+            background-color: transparent;
+            height: 200px;
+            width: 100%;
+            perspective: 1000px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+            cursor: pointer;
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .flip-card-front {
+            background-color: #bbb;
+            color: black;
+        }
+
+        .flip-card-back {
+            background-color: rgba(212, 212, 212, 0.20);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .text-card :hover {
+            cursor: pointer;
+        }
+    </style>
+}
+
+<!-- slider Area Start-->
+<div class="slider-area ">
+    <!-- Mobile Menu -->
+    <div class="slider-active">
+        <div class="single-slider hero-overly d-flex align-items-center"
+             style="width:100%!important;
+                    height:550px!important;
+                    background-image: url('/files/Default/1400x550.jpg');
+                    background-repeat:round;
+                    background-size:cover;">
+            <div class="container">
+                <div class="row text-right">
+                    <div class="col-xl-9 col-lg-9 col-md-9">
+                        <div class="hero__capt|ion">
+                            <h1 style="color:rgb(255 255 255 / 0.84) !important">
+                                اختر كتبك المفضل
+                            </h1>
+                            <p style="font-size: 22px;color: #f4f4f4 !important;">
+                                تصفح الكتب واختار كتبك المفضلة الان واطلبها مباشرة من خلال موقهنا
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- slider Area End-->
+
+<div class="our-services servic-padding">
+    <div class="container">
+        <div class="row d-flex justify-contnet-center">
+            @for (int i = 0; i < 10; i++)
+            {
+<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
+    <div class="single-services text-center mb-10 rounded">
+        <div class="services-ion">
+            <i class="fa fa-user fa-3x text-stand"></i>
+        </div>
+        <div class="services-cap pt-2">
+            <h5>
+                Description
+                <br>
+                <b>Name</b>
+            </h5>
+        </div>
+    </div>
+</div>      }
+
+            @*
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
+                    <div class="single-services text-center mb-10">
+                        <div class="services-ion">
+                            <span class="flaticon-tour text-stand"></span>
+                        </div>
+                        <div class="services-cap">
+                            <h5>+100  منطقة توصيل<br>مناطق التوصيل</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
+                    <div class="single-services text-center mb-10">
+                        <div class="services-ion">
+                            <span class="flaticon-pay text-stand"></span>
+                        </div>
+                        <div class="services-cap">
+                            <h5>توصيل موثوق 100%<br>الموثوية</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
+                    <div class="single-services text-center mb-10">
+                        <div class="services-ion">
+                            <span class="flaticon-experience text-stand"></span>
+                        </div>
+                        <div class="services-cap">
+                            <h5>+28 سنة من العمل<br>الخبرة</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
+                    <div class="single-services text-center mb-10">
+                        <div class="services-ion">
+                            <span class="flaticon-good text-stand"></span>
+                        </div>
+                        <div class="services-cap">
+                            <h5>99% من زبائننا<br>سعداء</h5>
+                        </div>
+                    </div>
+                </div>*@
+
+        </div>
+    </div>
+</div>
+
+<!-- ================ contact section start ================= -->
+<section class="contact-section" id="ContactUs">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-right">
+                <h2 class="contact-title">ابقى على تواصل</h2>
+            </div>
+            <div class="col-lg-8 text-right">
+                <form class="form-contact" id="contactForm">
+                    <div class="row">
+                        <div class="col-12 col-12">
+                            <div class="form-group">
+                                <input class="form-control rounded" placeholder="عنوان الرسالة">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <div class="form-group">
+                                <input class="form-control rounded" placeholder="الاسم">
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4">
+                            <div class="form-group">
+                                <input class="form-control rounded" placeholder="البريد الالكتروني">
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4">
+                            <div class="form-group">
+                                <input class="form-control rounded" placeholder="رقم الجوال">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <textarea class="form-control rounded w-100" cols="30" rows="5" placeholder="التفاصيل"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div style="display:none" class="error-message text-danger">عذرا لقد حدث خطأ ما</div>
+                        <div style="display:none" class="sent-message text-success">تم ارسال رسالتك بنجاح . شكرا لك</div>
+                    </div>
+                    <div class="form-group mt-1">
+                        <button id="contactUsSubmit" type="button" class="button button-contactForm boxed-btn rounded text-stand border-color bg-color-hover">ارسال</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-3 offset-lg-1 text-right">
+                <div class="media contact-info">
+                    <span class="contact-info__icon"><i class="ti-home text-stand"></i></span>
+                    <div class="media-body pr-4">
+                        <h3>Address</h3>
+                    </div>
+                </div>
+                <div class="media contact-info">
+                    <span class="contact-info__icon"><i class="ti-tablet text-stand"></i></span>
+                    <div class="media-body pr-4">
+                        <h3>PhoneNumber</h3>
+                        <p>WorkTime</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ================ contact section end ================= -->
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).on("click", "#contactUsSubmit", function (e) {
+            if ($("#contactForm").valid()) {
+                var form = jQuery('#contactForm')[0];
+                var data = new FormData(form);
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '/Home/Contact',
+                    data: data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response == "success") {
+                            $('.sent-message').show();
+                            $('.error-message').hide();
+                            form.reset();
+                        }
+                        else {
+                            $('.error-message').show();
+                            $('.sent-message').hide();
+                        }
+                    },
+                    error: function (jqXHR, error, errorThrown) {
+                        $('.error-message').show();
+                        $('.sent-message').hide();
+                    }
+                });
+            }
+        });</script>
+}

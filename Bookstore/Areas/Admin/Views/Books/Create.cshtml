@@ -1,0 +1,71 @@
+﻿@model Bookstore.Models.ViewModels.BookVM
+
+@{
+    ViewData["Title"] = "اضافة نوع";
+    Layout = null;
+}
+
+<form asp-action="Create" method="post" class="ajaxForm" tname="#dataTableId">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="Title" asp-for="Title" class="form-control-label"></label>
+                <input asp-for="Title" class="form-control">
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="YearRelease" asp-for="YearRelease" class="form-control-label"></label>
+                <input asp-for="YearRelease" class="form-control">
+                <span asp-validation-for="YearRelease" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="BookCategoryId" class="form-control-label"></label>
+                <select asp-for="BookCategoryId" id="area-id-receiver" asp-items="ViewBag.ListBookCategories" data-size="6" data-live-search="true" class="rounded selectpicker" data-width="100%">
+                    <option value="">اختر التصنيف</option>
+                </select>
+                <span asp-validation-for="BookCategoryId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="BookAuthorId" class="form-control-label"></label>
+                <select asp-for="BookAuthorId" id="area-id-receiver" asp-items="ViewBag.ListBookAuthors" data-size="6" data-live-search="true" class="rounded selectpicker" data-width="100%">
+                    <option value="">اختر المؤلف</option>
+                </select>
+                <span asp-validation-for="BookAuthorId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="BookPublishHouseId" class="form-control-label"></label>
+                <select asp-for="BookPublishHouseId" id="area-id-receiver" asp-items="ViewBag.ListBookPublishHouses" data-size="6" data-live-search="true" class="rounded selectpicker" data-width="100%">
+                    <option value="">اختر دار النشر</option>
+                </select>
+                <span asp-validation-for="BookPublishHouseId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="Description" asp-for="Description" class="form-control-label"></label>
+                <textarea asp-for="Description" rows="5" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+
+    </div>
+
+    <button type="button" class="rounded btn btn-secondary" data-dismiss="modal">اغلاق</button>
+    <button type="submit" class="rounded btn btn-primary">ارسال</button>
+</form>
+<script>
+    $('.selectpicker').selectpicker();
+    PageLoadActions();
+</script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>

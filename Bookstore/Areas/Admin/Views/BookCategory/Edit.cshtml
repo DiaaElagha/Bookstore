@@ -1,0 +1,26 @@
+﻿@model Bookstore.Models.ViewModels.CategoryVM
+
+@{
+    ViewData["Title"] = "تعديل النوع";
+    Layout = null;
+}
+
+<form asp-action="Edit" method="post" class="ajaxForm" tname="#dataTableId">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="Name" asp-for="Name" class="form-control-label"></label>
+                <input asp-for="Name" class="form-control">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <button type="button" class="rounded btn btn-secondary" data-dismiss="modal">اغلاق</button>
+    <button type="submit" class="rounded btn btn-primary">ارسال</button>
+</form>
+<script>
+    PageLoadActions();
+</script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
