@@ -7,5 +7,6 @@ namespace Bookstore.Models.ViewModels
 {
     public class HomeVM
     {
+        public List<BookVM> listBooks { get; set; } = new List<BookVM>();
     }
 }

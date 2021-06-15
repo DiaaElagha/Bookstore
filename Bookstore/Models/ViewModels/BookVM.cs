@@ -11,6 +11,7 @@ namespace Bookstore.Models.ViewModels
         [Required(ErrorMessage = "يرجى ادخال الاسم")]
         [Display(Name = "عنوان الكتاب")]
         public string Title { get; set; }
+        public string ImagePath { get; set; }
 
         [Display(Name = "تفاصيل الكتاب")]
         public string Description { get; set; }
@@ -18,7 +19,6 @@ namespace Bookstore.Models.ViewModels
         [Required(ErrorMessage = "يرجى ادخال سنة الاصدار")]
         [Display(Name = "سنة الاصدار")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:0/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime YearRelease { get; set; }
 
         [Required(ErrorMessage = "يرجى ادخال دار النشر")]

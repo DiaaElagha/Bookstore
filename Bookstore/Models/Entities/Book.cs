@@ -15,6 +15,7 @@ namespace Bookstore.Models.Entities
         [Required]
         public string Title { get; set; }
         public string Description { get; set; }
+        public string ImagePath { get; set; }
 
         [Required]
         [DisplayFormat(DataFormatString = "{0:0/yyyy}", ApplyFormatInEditMode = true)]

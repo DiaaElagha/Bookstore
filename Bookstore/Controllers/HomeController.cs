@@ -1,5 +1,9 @@
-﻿using Bookstore.Models;
+﻿using AutoMapper;
+using Bookstore.Data;
+using Bookstore.Models;
+using Bookstore.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,15 +16,35 @@ namespace Bookstore.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private ApplicationDbContext _context;
+        private IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, IMapper mapper)
         {
             _logger = logger;
+            _context = context;
+            _mapper = mapper;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            HomeVM vm = new HomeVM();
+            var listBooks = await _context.Book.OrderByDescending(x => x.CreateAt.Value).Take(8).ToListAsync();
+            vm.listBooks = _mapper.Map<List<BookVM>>(listBooks);
+
+            return View(vm);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SearchBook(String v)
+        {
+            HomeVM vm = new HomeVM();
+            var listBooks = await _context.Book.Where(x => x.Description.Contains(v) || x.Title.Contains(v) || x.YearRelease.Date.Year.ToString().Equals(v))
+                .OrderByDescending(x => x.CreateAt.Value).ToListAsync();
+
+            vm.listBooks = _mapper.Map<List<BookVM>>(listBooks);
+            return View(vm);
         }
 
         public IActionResult Privacy()

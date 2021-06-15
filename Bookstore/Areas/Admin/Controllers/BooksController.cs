@@ -13,14 +13,24 @@ using Bookstore.Helper;
 using Bookstore.Models.ViewModels;
 using Bookstore.Models.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Http;
+using Bookstore.Extensions;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Bookstore.Areas.Admin.Controllers
 {
     [Authorize]
     public class BooksController : BaseController
     {
-        public BooksController(ApplicationDbContext context, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper) : base(context, userManager, roleManager, mapper)
+        private IHostingEnvironment _hostingEnvironment;
+        public BooksController(
+            ApplicationDbContext context,
+            UserManager<IdentityUser> userManager,
+            RoleManager<IdentityRole> roleManager,
+            IMapper mapper,
+            IHostingEnvironment hostingEnvironment) : base(context, userManager, roleManager, mapper)
         {
+            this._hostingEnvironment = hostingEnvironment;
         }
 
         [HttpPost]
@@ -49,6 +59,7 @@ namespace Bookstore.Areas.Admin.Controllers
                 BookAuthorName = x.BookAuthor.Name,
                 BookPublishHouseName = x.BookPublishHouse.Name,
                 createAt = x.CreateAt.Value.ToShortDateString(),
+                imageLink = "files/Books/" + x.ImagePath
             }).Skip(d.Start).Take(d.Length).ToList();
             var result =
                new
@@ -84,12 +95,14 @@ namespace Bookstore.Areas.Admin.Controllers
         // POST: Admin/Area/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(BookVM model)
+        public async Task<IActionResult> Create(BookVM model, IFormFile file)
         {
             await GetLists();
             if (ModelState.IsValid)
             {
+                var fileName = await ImageHelper.UploadImage(file, _hostingEnvironment, "Files/Books");
                 var newEntity = _mapper.Map<Book>(model);
+                newEntity.ImagePath = fileName;
                 var result = await _context.Book.AddAsync(newEntity);
                 await _context.SaveChangesAsync();
                 if (result != null)
@@ -118,15 +131,23 @@ namespace Bookstore.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, BookVM model)
+        public async Task<IActionResult> Edit(int id, BookVM model, IFormFile file)
         {
             await GetLists();
             if (ModelState.IsValid)
             {
                 try
                 {
+                    string baseImagePath = "";
                     var baseEntoty = await _context.Book.FindAsync(id);
+                    baseImagePath = baseEntoty.ImagePath;
                     PropertyCopy.Copy(model, baseEntoty);
+                    baseEntoty.ImagePath = baseImagePath;
+                    if (file != null)
+                    {
+                        var fileName = await ImageHelper.UploadImage(file, _hostingEnvironment, "Files/Books");
+                        baseEntoty.ImagePath = fileName;
+                    }
                     _context.Book.Update(baseEntoty);
                     await _context.SaveChangesAsync();
                 }

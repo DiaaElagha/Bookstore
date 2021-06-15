@@ -71,30 +71,15 @@
 <div class="slider-area ">
     <!-- Mobile Menu -->
     <div class="slider-active">
-        <div class="single-slider hero-overly d-flex align-items-center"
-             style="width:100%!important;
-                    height:550px!important;
-                    background-image: url('/files/Default/1400x550.jpg');
-                    background-repeat:round;
-                    background-size:cover;">
+        <div class="single-slider hero-overly d-flex align-items-center">
             <div class="container">
                 <div class="row text-right">
                     <div class="col-xl-9 col-lg-9 col-md-9">
-                        <div class="hero__capt|ion">
-                            <h1 style="color:rgb(255 255 255 / 0.84) !important">
-                                اختر كتبك المفضل
-                            </h1>
+                        <div class="hero__caption pt-5">
                             <p style="font-size: 22px;color: #f4f4f4 !important;">
-                                تصفح الكتب واختار كتبك المفضلة الان واطلبها مباشرة من خلال موقهنا
+                                عرض نتائج البحث عن : @ViewContext.HttpContext.Request.Query["v"]
                             </p>
                         </div>
-                        <form class="DTForm" asp-action="SearchBook" method="get">
-                            <div class="row">
-                                <div class="col-8">
-                                    <input class="form-control" type="search" placeholder="ابحث عن كتابك المفضل الان من خلال الاسم او سنة الاصدار ..." name="v">
-                                </div>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -122,6 +107,13 @@
         </div>
     </div>
 </div>      }
+
+            @if (Model.listBooks.Count() == 0)
+            {
+        <p style="font-size: 22px;color: #ff0000 !important;">
+            لا يوجد نتائج بحث
+        </p>
+            }
 
         </div>
     </div>
