@@ -30,8 +30,8 @@ namespace Bookstore.Controllers
         public async Task<IActionResult> Index()
         {
             HomeVM vm = new HomeVM();
-            var listBooks = await _context.Book.OrderByDescending(x => x.CreateAt.Value).Take(8).ToListAsync();
-            vm.listBooks = _mapper.Map<List<BookVM>>(listBooks);
+            var listBooks = await _context.Book.Include(x => x.BookCategory).Include(x => x.BookAuthor).OrderByDescending(x => x.CreateAt.Value).Take(8).ToListAsync();
+            vm.listBooks = listBooks;
 
             return View(vm);
         }
@@ -40,10 +40,15 @@ namespace Bookstore.Controllers
         public async Task<IActionResult> SearchBook(String v)
         {
             HomeVM vm = new HomeVM();
-            var listBooks = await _context.Book.Where(x => x.Description.Contains(v) || x.Title.Contains(v) || x.YearRelease.Date.Year.ToString().Equals(v))
+
+            var listBooks = await _context.Book.Include(x => x.BookCategory).Include(x => x.BookAuthor)
+                .Where(x => 
+                    x.Description.Contains(v) || 
+                    x.Title.Contains(v) || 
+                    x.YearRelease.Date.Year.ToString().Equals(v))
                 .OrderByDescending(x => x.CreateAt.Value).ToListAsync();
 
-            vm.listBooks = _mapper.Map<List<BookVM>>(listBooks);
+            vm.listBooks = listBooks;
             return View(vm);
         }
 

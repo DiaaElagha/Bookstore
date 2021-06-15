@@ -20,7 +20,6 @@
                 <input name="file" type="file" class="form-control" required >
             </div>
         </div>
-
         <div class="col-md-3">
             <div class="form-group">
                 <label for="YearRelease" asp-for="YearRelease" class="form-control-label"></label>
@@ -28,7 +27,6 @@
                 <span asp-validation-for="YearRelease" class="text-danger"></span>
             </div>
         </div>
-
         <div class="col-md-3">
             <div class="form-group">
                 <label asp-for="BookCategoryId" class="form-control-label"></label>
@@ -56,7 +54,6 @@
                 <span asp-validation-for="BookPublishHouseId" class="text-danger"></span>
             </div>
         </div>
-
         <div class="col-md-12">
             <div class="form-group">
                 <label for="Description" asp-for="Description" class="form-control-label"></label>
@@ -64,12 +61,11 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
         </div>
-
     </div>
-
     <button type="button" class="rounded btn btn-secondary" data-dismiss="modal">اغلاق</button>
     <button type="submit" class="rounded btn btn-primary">ارسال</button>
 </form>
+
 <script>
     $('.selectpicker').selectpicker();
     PageLoadActions();

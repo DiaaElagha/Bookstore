@@ -88,31 +88,42 @@
 </div>
 <!-- slider Area End-->
 
-<div class="our-services servic-padding">
+<div class="our-services servic-padding pt-5 pb-5">
     <div class="container">
         <div class="row d-flex justify-contnet-center">
             @for (int i = 0; i < Model.listBooks.Count(); i++)
             {
-<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-    <div class="single-services text-center mb-10 rounded">
-        <div class="services-ion">
-            <img src="~/files/Books/@Model.listBooks[i].ImagePath" width="100px" height="100px" />
-        </div>
-        <div class="services-cap pt-2">
-            <h5>
-                @Model.listBooks[i].Description
-                <br>
-                <span>@Model.listBooks[i].Title</span>
-            </h5>
-        </div>
-    </div>
-</div>      }
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
+            <div class="single-services text-center mb-10 rounded">
+                <div class="services-ion">
+                    <img src="~/files/Books/@Model.listBooks[i].ImagePath" width="150px" height="150px" />
+                </div>
+                <div class="services-cap pt-2">
+                    <h5>
+                        @Model.listBooks[i].Description
+                        <br>
+                        <span>@Model.listBooks[i].Title | </span><small class="text-right text-primary">  @Model.listBooks[i].YearRelease.Date.Year </small>
+                    </h5>
+                    <div class="row pt-3">
+                        <div class="col-md">
+                            <p><a href="#" class="text-white bg-light rounded p-1"><b>@Model.listBooks[i].BookCategory.Name</b></a></p>
+
+                        </div>
+                        <div class="col-md">
+
+                            <p><a href="#" class="text-white bg-light rounded p-1"><b>@Model.listBooks[i].BookAuthor.Name</b></a></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>      }
 
             @if (Model.listBooks.Count() == 0)
             {
-        <p style="font-size: 22px;color: #ff0000 !important;">
-            لا يوجد نتائج بحث
-        </p>
+                <p style="font-size: 22px;color: #ff0000 !important;">
+                    لا يوجد نتائج بحث
+                </p>
             }
 
         </div>

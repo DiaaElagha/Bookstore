@@ -42,8 +42,8 @@ namespace Bookstore.Areas.Admin.Controllers
                 .Include(x => x.BookAuthor)
                 .Include(x => x.BookCategory)
                 .Include(x => x.BookPublishHouse)
-                .Where(x => (d.SearchKey == null 
-                    || x.Title.Contains(d.SearchKey) 
+                .Where(x => (d.SearchKey == null
+                    || x.Title.Contains(d.SearchKey)
                     || x.Description.Contains(d.SearchKey)
                     || x.YearRelease.Year.ToString().Contains(d.SearchKey)))
                 .OrderBy(x => x.CreateAt)
@@ -80,9 +80,9 @@ namespace Bookstore.Areas.Admin.Controllers
 
         private async Task GetLists()
         {
-            ViewData["ListBookCategories"] = new SelectList(await _context.BookCategory.ToListAsync() , nameof(BookCategory.Id), nameof(BookCategory.Name));
-            ViewData["ListBookAuthors"] = new SelectList(await _context.BookAuthor.ToListAsync() , nameof(BookAuthor.Id), nameof(BookAuthor.Name));
-            ViewData["ListBookPublishHouses"] = new SelectList(await _context.BookPublishHouse.ToListAsync() , nameof(BookPublishHouse.Id), nameof(BookPublishHouse.Name));
+            ViewData["ListBookCategories"] = new SelectList(await _context.BookCategory.ToListAsync(), nameof(BookCategory.Id), nameof(BookCategory.Name));
+            ViewData["ListBookAuthors"] = new SelectList(await _context.BookAuthor.ToListAsync(), nameof(BookAuthor.Id), nameof(BookAuthor.Name));
+            ViewData["ListBookPublishHouses"] = new SelectList(await _context.BookPublishHouse.ToListAsync(), nameof(BookPublishHouse.Id), nameof(BookPublishHouse.Name));
         }
 
         // GET: Admin/Area/Create
@@ -100,16 +100,36 @@ namespace Bookstore.Areas.Admin.Controllers
             await GetLists();
             if (ModelState.IsValid)
             {
-                var fileName = await ImageHelper.UploadImage(file, _hostingEnvironment, "Files/Books");
-                var newEntity = _mapper.Map<Book>(model);
-                newEntity.ImagePath = fileName;
-                var result = await _context.Book.AddAsync(newEntity);
-                await _context.SaveChangesAsync();
-                if (result != null)
-                    return Content(ShowMessage.AddSuccessResult(), "application/json");
+                try
+                {
+                    bool resultIsBookDuplication = await IsBookDuplication(model);
+                    if (resultIsBookDuplication)
+                    {
+                        return Content(ShowMessage.AddSuccessResult("w: Sorry! This book already exists!"), "application/json");
+                    }
+
+                    var fileName = await ImageHelper.UploadImage(file, _hostingEnvironment, "Files/Books");
+                    var newEntity = _mapper.Map<Book>(model);
+                    newEntity.ImagePath = fileName;
+                    var result = await _context.Book.AddAsync(newEntity);
+                    await _context.SaveChangesAsync();
+                    if (result != null)
+                        return Content(ShowMessage.AddSuccessResult(), "application/json");
+                }
+                catch (Exception ex)
+                {
+                }
                 return Content(ShowMessage.FailedResult(), "application/json");
             }
             return View(model);
+        }
+
+        private async Task<bool> IsBookDuplication(BookVM model)
+        {
+            bool isBookDuplication = await _context.Book.AnyAsync(x =>
+                x.Title.Trim().Equals(model.Title.Trim()) &&
+                x.YearRelease.Date.Year == model.YearRelease.Date.Year);
+            return isBookDuplication;
         }
 
         // GET: Admin/Area/Edit/5
@@ -138,6 +158,10 @@ namespace Bookstore.Areas.Admin.Controllers
             {
                 try
                 {
+                    if (await _context.Book.AnyAsync(x => x.Title.Trim().Equals(model.Title.Trim()) && x.YearRelease.Date.Year == model.YearRelease.Date.Year))
+                    {
+                        return Content(ShowMessage.AddSuccessResult("w: Sorry! This book already exists!"), "application/json");
+                    }
                     string baseImagePath = "";
                     var baseEntoty = await _context.Book.FindAsync(id);
                     baseImagePath = baseEntoty.ImagePath;
