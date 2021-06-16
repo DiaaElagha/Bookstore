@@ -158,12 +158,13 @@ namespace Bookstore.Areas.Admin.Controllers
             {
                 try
                 {
-                    if (await _context.Book.AnyAsync(x => x.Title.Trim().Equals(model.Title.Trim()) && x.YearRelease.Date.Year == model.YearRelease.Date.Year))
+                    var baseEntoty = await _context.Book.FindAsync(id);
+                    if (await _context.Book.AnyAsync(x => x.Title.Trim().Equals(baseEntoty.Title.Trim()) 
+                        && x.YearRelease.Date.Year == baseEntoty.YearRelease.Date.Year))
                     {
                         return Content(ShowMessage.AddSuccessResult("w: Sorry! This book already exists!"), "application/json");
                     }
                     string baseImagePath = "";
-                    var baseEntoty = await _context.Book.FindAsync(id);
                     baseImagePath = baseEntoty.ImagePath;
                     PropertyCopy.Copy(model, baseEntoty);
                     baseEntoty.ImagePath = baseImagePath;
